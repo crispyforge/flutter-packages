@@ -54,8 +54,16 @@ public final class TextureVideoPlayer extends VideoPlayer
         asset.getMediaItem(),
         options,
         () -> {
+          DefaultLoadControl.Builder loadBuilder = new DefaultLoadControl.Builder();
+          loadBuilder.setBufferDurationsMs(
+            6000,
+            12000,
+            3000,
+            6000
+          );
           ExoPlayer.Builder builder =
               new ExoPlayer.Builder(context)
+                  .setLoadControl(loadControl)
                   .setMediaSourceFactory(asset.getMediaSourceFactory(context));
           return builder.build();
         });
